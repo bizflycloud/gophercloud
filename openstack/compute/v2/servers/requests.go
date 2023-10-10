@@ -229,6 +229,7 @@ type CreateOpts struct {
 	// Requires microversion 2.52 or later.
 	Tags                 []string    `json:"tags,omitempty"`
 	BlockDeviceMappingV2 interface{} `json:"block_device_mapping_v2"`
+	KeyName              string      `json:"key_name,omitempty"`
 }
 
 // ToServerCreateMap assembles a request body based on the contents of a
