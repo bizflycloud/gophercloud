@@ -772,3 +772,30 @@ func ShowConsoleOutput(client *gophercloud.ServiceClient, id string, opts ShowCo
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+type GetVNCOptsBuilder interface {
+	ToServerGetVNCMap() (map[string]interface{}, error)
+}
+
+type GetVNCOpts struct {
+	// Type of the console to retrieve.
+	// Valid values are "novnc"
+	Type string `json:"type,omitempty"`
+}
+
+func (opts GetVNCOpts) ToServerGetVNCMap() (map[string]interface{}, error) {
+	return gophercloud.BuildRequestBody(opts, "os-getVNCConsole")
+}
+
+func GetVNC(client *gophercloud.ServiceClient, id string, opts GetVNCOptsBuilder) (r GetVNCResult) {
+	b, err := opts.ToServerGetVNCMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+	resp, err := client.Post(actionURL(client, id), b, &r.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{200},
+	})
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}

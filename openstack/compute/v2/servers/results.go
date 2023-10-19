@@ -81,6 +81,10 @@ type ShowConsoleOutputResult struct {
 	gophercloud.Result
 }
 
+type GetVNCResult struct {
+	gophercloud.Result
+}
+
 // Extract will return the console output from a ShowConsoleOutput request.
 func (r ShowConsoleOutputResult) Extract() (string, error) {
 	var s struct {
