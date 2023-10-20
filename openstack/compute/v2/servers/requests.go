@@ -228,7 +228,7 @@ type CreateOpts struct {
 	// Tags allows a server to be tagged with single-word metadata.
 	// Requires microversion 2.52 or later.
 	Tags                 []string    `json:"tags,omitempty"`
-	BlockDeviceMappingV2 interface{} `json:"block_device_mapping_v2"`
+	BlockDeviceMappingV2 interface{} `json:"block_device_mapping_v2,omitempty"`
 	KeyName              *string     `json:"key_name,omitempty"`
 }
 
