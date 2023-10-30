@@ -224,3 +224,7 @@ type ReImageResult struct {
 type ResetStateResult struct {
 	gophercloud.ErrResult
 }
+
+type RevertVolumeToSnapshotResult struct {
+	gophercloud.ErrResult
+}

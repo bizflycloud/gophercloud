@@ -144,6 +144,10 @@ func (r commonResult) Extract() (*Snapshot, error) {
 	return s.Snapshot, err
 }
 
+type ResetStatusResult struct {
+	commonResult
+}
+
 func ExtractSnapshotsInto(r pagination.Page, v interface{}) error {
 	return r.(SnapshotPage).Result.ExtractIntoSlicePtr(v, "snapshots")
 }

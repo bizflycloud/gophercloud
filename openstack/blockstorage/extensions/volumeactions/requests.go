@@ -447,3 +447,26 @@ func ResetState(client *gophercloud.ServiceClient, id string, opts ResetStateOpt
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+type RevertVolumeToSnapshotOptsBuilder interface {
+	ToVolumeResetVolumeToSnapshotMap() (map[string]interface{}, error)
+}
+
+type ResetVolumeToSnapshotOpts struct {
+	SnapshotID string `json:"snapshot_id" required:"true"`
+}
+
+func (opts ResetVolumeToSnapshotOpts) ToVolumeResetVolumeToSnapshotMap() (map[string]interface{}, error) {
+	return gophercloud.BuildRequestBody(opts, "revert")
+}
+
+func RevertVolumeToSnapshot(client *gophercloud.ServiceClient, id string, opts RevertVolumeToSnapshotOptsBuilder) (r RevertVolumeToSnapshotResult) {
+	b, err := opts.ToVolumeResetVolumeToSnapshotMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+	resp, err := client.Post(actionURL(client, id), b, nil, nil)
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}

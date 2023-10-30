@@ -189,3 +189,28 @@ func UpdateMetadata(client *gophercloud.ServiceClient, id string, opts UpdateMet
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+type ResetStatusOptsBuilder interface {
+	ToSnapshotResetStatusMap() (map[string]interface{}, error)
+}
+
+type ResetStatusOpts struct {
+	Status string `json:"status"`
+}
+
+func (opts ResetStatusOpts) ToSnapshotResetStatusMap() (map[string]interface{}, error) {
+	return gophercloud.BuildRequestBody(opts, "os-reset_status")
+}
+
+func ResetStatus(client *gophercloud.ServiceClient, id string, opts ResetStatusOptsBuilder) (r ResetStatusResult) {
+	b, err := opts.ToSnapshotResetStatusMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+	resp, err := client.Post(actionURL(client, id), b, &r.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{202},
+	})
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}
