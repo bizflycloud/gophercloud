@@ -213,3 +213,24 @@ func Update(client *gophercloud.ServiceClient, id string, opts UpdateOptsBuilder
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+type UpdateMetadataOpts struct {
+	Metadata map[string]string `json:"metadata"`
+}
+
+func (opts UpdateMetadataOpts) ToVolumeUpdateMetadataMap() (map[string]interface{}, error) {
+	return gophercloud.BuildRequestBody(opts, "metadata")
+}
+
+func UpdateMetadata(client *gophercloud.ServiceClient, id string, opts UpdateMetadataOpts) (r UpdateResult) {
+	b, err := opts.ToVolumeUpdateMetadataMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+	resp, err := client.Put(updateMetadataURL(client, id), b, &r.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{200},
+	})
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}
