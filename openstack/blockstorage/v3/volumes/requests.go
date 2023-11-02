@@ -219,7 +219,7 @@ type UpdateMetadataOpts struct {
 }
 
 func (opts UpdateMetadataOpts) ToVolumeUpdateMetadataMap() (map[string]interface{}, error) {
-	return gophercloud.BuildRequestBody(opts, "metadata")
+	return gophercloud.BuildRequestBody(opts, "")
 }
 
 func UpdateMetadata(client *gophercloud.ServiceClient, id string, opts UpdateMetadataOpts) (r UpdateResult) {
