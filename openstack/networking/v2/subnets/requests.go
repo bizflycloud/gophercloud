@@ -111,7 +111,7 @@ type CreateOpts struct {
 	// cause a default gateway to automatically be created. Setting to an empty
 	// string will cause the subnet to be created with no gateway. Setting to
 	// an explicit address will set that address as the gateway.
-	GatewayIP *string `json:"gateway_ip,omitempty"`
+	GatewayIP *string `json:"gateway_ip"`
 
 	// IPVersion is the IP version for the subnet.
 	IPVersion gophercloud.IPVersion `json:"ip_version,omitempty"`
