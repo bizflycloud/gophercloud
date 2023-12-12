@@ -151,3 +151,7 @@ type ResetStatusResult struct {
 func ExtractSnapshotsInto(r pagination.Page, v interface{}) error {
 	return r.(SnapshotPage).Result.ExtractIntoSlicePtr(v, "snapshots")
 }
+
+type CreateMetadatumResult struct {
+	commonResult
+}

@@ -25,3 +25,7 @@ func updateURL(c *gophercloud.ServiceClient, id string) string {
 func updateMetadataURL(c *gophercloud.ServiceClient, id string) string {
 	return c.ServiceURL("volumes", id, "metadata")
 }
+
+func metadatumURL(c *gophercloud.ServiceClient, id, key string) string {
+	return c.ServiceURL("volumes", id, "metadata", key)
+}

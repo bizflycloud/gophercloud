@@ -214,3 +214,37 @@ func ResetStatus(client *gophercloud.ServiceClient, id string, opts ResetStatusO
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+type MetadatumOptsBuilder interface {
+	ToMetadatumCreateMap() (map[string]interface{}, string, error)
+}
+
+type MetadatumOpts map[string]string
+
+func (opts MetadatumOpts) ToMetadatumCreateMap() (map[string]interface{}, string, error) {
+	if len(opts) != 1 {
+		err := gophercloud.ErrInvalidInput{}
+		err.Argument = "snapshots.MetadatumOpts"
+		err.Info = "Must have 1 and only 1 key-value pair"
+		return nil, "", err
+	}
+	metadatum := map[string]interface{}{"meta": opts}
+	var key string
+	for k := range metadatum["meta"].(MetadatumOpts) {
+		key = k
+	}
+	return metadatum, key, nil
+}
+
+func CreateMetadatum(client *gophercloud.ServiceClient, id string, opts MetadatumOptsBuilder) (r CreateMetadatumResult) {
+	b, key, err := opts.ToMetadatumCreateMap()
+	if err != nil {
+		r.Err = err
+		return
+	}
+	resp, err := client.Put(metadatumURL(client, id, key), b, &r.Body, &gophercloud.RequestOpts{
+		OkCodes: []int{200},
+	})
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}

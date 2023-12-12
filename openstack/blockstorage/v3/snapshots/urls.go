@@ -33,3 +33,7 @@ func updateMetadataURL(c *gophercloud.ServiceClient, id string) string {
 func actionURL(c *gophercloud.ServiceClient, id string) string {
 	return c.ServiceURL("snapshots", id, "action")
 }
+
+func metadatumURL(c *gophercloud.ServiceClient, id, key string) string {
+	return c.ServiceURL("snapshots", id, "metadata", key)
+}
