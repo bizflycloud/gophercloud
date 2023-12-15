@@ -176,5 +176,5 @@ type DeleteResult struct {
 }
 
 type CreateMetadatumResult struct {
-	commonResult
+	gophercloud.ErrResult
 }

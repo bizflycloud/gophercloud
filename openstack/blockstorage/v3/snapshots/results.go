@@ -153,5 +153,5 @@ func ExtractSnapshotsInto(r pagination.Page, v interface{}) error {
 }
 
 type CreateMetadatumResult struct {
-	commonResult
+	gophercloud.ErrResult
 }
