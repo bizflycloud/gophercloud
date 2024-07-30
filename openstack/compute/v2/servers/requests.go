@@ -473,7 +473,14 @@ type RebuildOpts struct {
 	// Personality [optional] includes files to inject into the server at launch.
 	// Rebuild will base64-encode file contents for you.
 	Personality Personality `json:"personality,omitempty"`
-	UserData    []byte      `json:"user_data,omitempty"`
+
+	// Configuration information or scripts to use upon rebuild.
+	// Must be Base64 encoded. Restricted to 65535 bytes.
+	UserData []byte `json:"user_data,omitempty"`
+
+	// KeyName [optional] to set the server
+	// If null is specified, the existing keypair is unset.
+	KeyName **string `json:"key_name,omitempty"`
 }
 
 // ToServerRebuildMap formats a RebuildOpts struct into a map for use in JSON
