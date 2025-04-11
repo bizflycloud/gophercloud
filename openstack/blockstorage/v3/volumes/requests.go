@@ -268,3 +268,11 @@ func CreateMetadatum(client *gophercloud.ServiceClient, id string, opts Metadatu
 	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
 	return
 }
+
+func DeleteMetadatum(client *gophercloud.ServiceClient, id, key string) (r CreateMetadatumResult) {
+	resp, err := client.Delete(metadatumURL(client, id, key), &gophercloud.RequestOpts{
+		OkCodes: []int{200},
+	})
+	_, r.Header, r.Err = gophercloud.ParseResponse(resp, err)
+	return
+}
